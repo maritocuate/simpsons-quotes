@@ -1,63 +1,76 @@
-# Simpsons API
+# Simpsons Quotes API
 
-This is an API developed in [Nest.js](https://nestjs.com/) that provides random quotes from The Simpsons. It also offers the ability to add new quotes to the database.
+This is a simple API that provides random quotes from the beloved TV show, "The Simpsons." You can use this API to retrieve random quotes from the show or add new quotes to the database. It's a fun and lighthearted project for all Simpsons fans!
 
 ## Table of Contents
 
+- [Features](#features)
 - [Requirements](#requirements)
 - [Installation](#installation)
-- [Configuration](#configuration)
-- [Usage](#usage)
-- [Project Structure](#project-structure)
-- [Contribution](#contribution)
-- [License](#license)
+- [API Endpoints](#api-endpoints)
+- [Examples](#examples)
+
+## Features
+
+- Get random quotes from "The Simpsons."
+- Add new quotes to the database.
+- Retrieve all stored quotes.
+- Clean and simple API for easy integration.
 
 ## Requirements
 
-Make sure you have the following tools and packages installed in your development environment:
+Before you get started, ensure that you have the following dependencies installed:
 
-- Node.js and npm (Node Package Manager)
-- MongoDB (or a cloud instance like MongoDB Atlas)
+- Node.js
+- npm (Node Package Manager)
+- MongoDB (or a cloud-based MongoDB service like MongoDB Atlas)
 
 ## Installation
 
 1. Clone this repository to your local machine:
 
    ```bash
-   git clone https://github.com/yourusername/simpsons-api.git
+   git clone https://github.com/maritocuate/simpsons-quotes.git
+   ```
 
+2. Navigate to the project directory:
 
-## Running the app
+   ```bash
+   cd simpsons-quotes
+   ```
 
+3. Install the required dependencies:
+
+   ```bash
+   npm install
+   ```
+
+## API Endpoints
+
+The API provides the following endpoints:
+- GET **/quotes/random**: Retrieves a random quote from "The Simpsons."
+- POST **/quotes/create**: Adds a new quote to the database. You should provide the quote in the request body in JSON format.
+
+## Examples
+
+### Get a Random Quote
+
+To get a random quote, make a GET request to the following endpoint:
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+https://simpsons-quotes-ten.vercel.app/quotes/random
 ```
 
-## Configuration
+### Add a New Quote
 
-Create a .env file in the project root to store your configuration. You should set the MongoDB connection string in this file:
+To add a new quote, make a POST request to:
+```bash
+https://simpsons-quotes-ten.vercel.app/quotes/create
+```
+You should provide the quote in the request body in the following JSON format:
 
 ```bash
-MONGODB_URI=your_mongodb_connection_string
+{
+  "quote": "Your new quote here",
+  "character": "Character's name"
+}
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).

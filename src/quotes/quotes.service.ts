@@ -1,33 +1,26 @@
 import { Injectable } from '@nestjs/common';
-import { Quote } from './quote.entity';
+import { InjectModel } from '@nestjs/mongoose';
+import { Quote } from './interfaces/quote.interface';
+import { Model } from 'mongoose';
+import { CreateQuoteDTO } from './dto/quote.dto';
 
 @Injectable()
 export class QuotesService {
 
-    private quotes: Quote[] = [
-        {
-            id: 1,
-            text: 'Shoplifting Is A Victimless Crime. Like Punching Someone In The Dark.',
-            author: 'Nelson Muntz'
-        },
-        {
-            id: 2,
-            text: `I’d Rather Let A Thousand Guilty Men Go Free Than Chase After Them.`,
-            author: 'Chief Wiggum'
-        },
-        {
-            id: 3,
-            text: `Me Fail English? That's Unpossible`,
-            author: 'Ralph Wiggum'
-        },
-        {
-            id: 4,
-            text: `Everything’s Coming Up Milhouse!`,
-            author: 'Milhouse Van Houten'
-        },
-    ]
+    constructor(
+        @InjectModel('Quote')
+        private readonly quoteModel: Model<Quote>
+    ) {}
 
-    getRandomQuote() {
-        return this.quotes[Math.floor(Math.random() * this.quotes.length)]
+    async getRandomQuote(): Promise<Quote> {
+        const count = await this.quoteModel.countDocuments().exec();
+        const random = Math.floor(Math.random() * count);
+        const randomQuote = await this.quoteModel.findOne().skip(random).exec();
+        return randomQuote;
+    }
+
+    async createQuote(createQuoteDTO: CreateQuoteDTO): Promise<Quote> {
+        const newQuote = new this.quoteModel(createQuoteDTO);
+        return newQuote.save();
     }
 }

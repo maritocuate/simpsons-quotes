@@ -1,11 +1,14 @@
 import { Module } from '@nestjs/common';
 import { QuotesModule } from './quotes/quotes.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule } from '@nestjs/config';
+
+ConfigModule.forRoot()
 
 @Module({
   imports: [
     QuotesModule,
-    MongooseModule.forRoot('mongodb+srv://mario300:mario300@cluster0.qbjsjl8.mongodb.net/')
+    MongooseModule.forRoot(process.env.MONGODB_URI),
   ],
   controllers: [],
   providers: [],
